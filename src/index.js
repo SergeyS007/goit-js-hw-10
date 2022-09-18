@@ -15,6 +15,7 @@ function onInput(event) {
   event.preventDefault();
   let inputCountry = input.value.trim();
   emptyCountryList();
+  emptyCountryInfo();
   fetchCountries(inputCountry)
     .then(countries => {
       console.log(countries);
