@@ -16,25 +16,27 @@ function onInput(event) {
   let inputCountry = input.value.trim();
   emptyCountryList();
   emptyCountryInfo();
-  fetchCountries(inputCountry)
-    .then(countries => {
-      console.log(countries);
-      let l = countries.length;
-      if (l > 10) {
-        Notiflix.Notify.info(
-          'Too many matches found. Please enter a more specific name.'
-        );
-      } else if (l >= 2 && l <= 10) {
-        renderCountries(countries);
-      } else {
-        renderCountriesOne(countries);
-      }
-    })
-    .catch(error => {
-      console.log(error);
-      Notiflix.Notify.failure('Oops, there is no country with that name');
-      emptyCountryInfo();
-    });
+  if (inputCountry !== '') {
+    fetchCountries(inputCountry)
+      .then(countries => {
+        console.log(countries);
+        let l = countries.length;
+        if (l > 10) {
+          Notiflix.Notify.info(
+            'Too many matches found. Please enter a more specific name.'
+          );
+        } else if (l >= 2 && l <= 10) {
+          renderCountries(countries);
+        } else {
+          renderCountriesOne(countries);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        Notiflix.Notify.failure('Oops, there is no country with that name');
+        emptyCountryInfo();
+      });
+  }
 }
 
 function emptyCountryList() {
